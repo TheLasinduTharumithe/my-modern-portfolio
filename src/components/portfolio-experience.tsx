@@ -234,14 +234,14 @@ function HeroSection({ data }: { data: GithubSyncData }) {
             variants={sectionVariant}
             className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] tracking-normal text-white sm:text-6xl lg:text-7xl"
           >
-            Software engineer building calm, scalable web products.
+            Full Stack Developer building real-world web applications.
           </motion.h1>
           <motion.div variants={sectionVariant} className="mt-6 space-y-2">
             <p className="text-xl font-medium text-white">{profile.role}</p>
             <p className="text-xl text-slate-300">Full Stack Developer</p>
             <p className="max-w-2xl text-lg leading-8 text-slate-400">
-              Building scalable web applications with clean interfaces, reliable data
-              models, and production-minded engineering habits.
+              I design and develop responsive, database-driven applications with
+              clean interfaces, secure workflows, and reliable deployment.
             </p>
           </motion.div>
           <motion.div variants={sectionVariant} className="mt-9 flex flex-col gap-3 sm:flex-row">
