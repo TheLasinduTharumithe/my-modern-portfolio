@@ -6,7 +6,7 @@ import { profile } from "@/lib/portfolio-data";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://lasindutharumitha.dev";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://my-modern-portfolio-seven.vercel.app";
 const description =
   "Lasindu Tharumitha - BEng (Hons) Software Engineering Graduate. A premium developer portfolio automatically synchronized with GitHub projects, activity, live demos, and recruiter-focused engineering signals.";
 
