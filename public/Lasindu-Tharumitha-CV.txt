@@ -1,0 +1,46 @@
+LASINDU THARUMITHA
+BEng (Hons) Software Engineering | Full Stack Developer | IT Enthusiast
+Matara, Sri Lanka
+Email: thelasindutharumitha@gmail.com
+Phone: +94 76 426 7166
+
+CAREER OBJECTIVE
+Software Engineering graduate with strong knowledge in full-stack development, database systems, networking, software engineering principles, and modern web technologies. Seeking internship and graduate opportunities to apply technical skills while contributing to innovative software solutions.
+
+EDUCATION
+BEng (Hons) in Software Engineering
+Advanced College of Colombo
+
+RELEVANT MODULES
+Programming, Database Design, Networking, Security, Software Development, Web Development
+
+TECHNICAL SKILLS
+Frontend: HTML5, CSS3, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Bootstrap
+Backend: Node.js, Express.js, ASP.NET MVC, C#
+Databases: MySQL, SQL Server, Firebase, Firestore
+Programming Languages: Java, C#, JavaScript, TypeScript, Python, SQL
+Tools: Git, GitHub, VS Code, Visual Studio, Cisco Packet Tracer, Figma, Postman
+Networking: VLANs, VPN, TCP/IP, Routing, Switching, Network Security
+
+FEATURED PROJECTS
+EcoPlate - Food Donation Management Platform
+Stack: Next.js, TypeScript, Firebase
+Features: Role-based authentication, food donation management, real-time notifications, analytics dashboard, modern UI
+
+IslandLink Sales Distribution Network
+Stack: Next.js, Firebase
+Features: Order management, delivery tracking, inventory management, multi-role system, logistics dashboard
+
+GreenLife Organic Store
+Stack: C#, WinForms, SQL Server
+Features: Inventory management, customer management, sales processing, reports generation
+
+University Management System
+Stack: ASP.NET MVC, SQL Server
+Features: Student management, lecturer management, course management, assignment tracking
+
+BlueScope Network Infrastructure Design
+Features: Network architecture, VLAN implementation, VPN connectivity, Cisco Packet Tracer simulation, enterprise networking
+
+SERVICES
+Web Development, Full Stack Development, Database Design, UI/UX Design, Software Development, Networking Solutions
