@@ -69,8 +69,8 @@ function makeOrbit(index: number): Orbit {
 }
 
 function getScatteredPoint(index: number, width: number, height: number): Point {
-  const columns = 7;
-  const rows = 5;
+  const columns = width < 640 ? 4 : 7;
+  const rows = Math.ceil(skills.length / columns);
   const column = (index * 3) % columns;
   const row = Math.floor(index / columns);
   const jitterX = Math.sin((index + 1) * 12.9898) * 0.24;
@@ -90,6 +90,7 @@ export function SkillOrbitSystem() {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
   const [enabled, setEnabled] = useState(false);
+  const [hasFinePointer, setHasFinePointer] = useState(false);
   const [docked, setDocked] = useState(false);
   const [cursor, setCursor] = useState<Point>({ x: 0, y: 0 });
   const [cursorVisible, setCursorVisible] = useState(false);
@@ -109,11 +110,12 @@ export function SkillOrbitSystem() {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 
     const updatePointerCapability = () => {
-      const nextEnabled = finePointer.matches;
-      setEnabled(nextEnabled);
+      const nextFinePointer = finePointer.matches;
+      setEnabled("PointerEvent" in window);
+      setHasFinePointer(nextFinePointer);
       setViewport({ width: window.innerWidth, height: window.innerHeight });
 
-      if (nextEnabled && latestPointer.current.x === 0 && latestPointer.current.y === 0) {
+      if (latestPointer.current.x === 0 && latestPointer.current.y === 0) {
         const initialPoint = {
           x: window.innerWidth * 0.56,
           y: window.innerHeight * 0.5,
@@ -131,7 +133,6 @@ export function SkillOrbitSystem() {
 
     const handlePointerMove = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;
-
       latestPointer.current = { x: event.clientX, y: event.clientY };
       setCursorVisible(true);
 
@@ -166,13 +167,16 @@ export function SkillOrbitSystem() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("skill-orbit-active", canAnimate);
-    document.documentElement.classList.toggle("react-cursor-active", canAnimate);
+    document.documentElement.classList.toggle(
+      "react-cursor-active",
+      canAnimate && hasFinePointer,
+    );
 
     return () => {
       document.documentElement.classList.remove("skill-orbit-active");
       document.documentElement.classList.remove("react-cursor-active");
     };
-  }, [canAnimate]);
+  }, [canAnimate, hasFinePointer]);
 
   useEffect(() => {
     if (!canAnimate) return;
@@ -208,12 +212,11 @@ export function SkillOrbitSystem() {
     };
 
     const emitDust = (event: PointerEvent) => {
-      if (event.pointerType !== "mouse") return;
-
       const now = performance.now();
       const current = { x: event.clientX, y: event.clientY };
-      const movementX = previousPointer ? current.x - previousPointer.x : 0;
-      const movementY = previousPointer ? current.y - previousPointer.y : 0;
+      const isPointerStart = event.type === "pointerdown";
+      const movementX = !isPointerStart && previousPointer ? current.x - previousPointer.x : 0;
+      const movementY = !isPointerStart && previousPointer ? current.y - previousPointer.y : 0;
       previousPointer = current;
 
       if (now - lastEmission < 14) return;
@@ -287,11 +290,13 @@ export function SkillOrbitSystem() {
     resizeCanvas();
     animationFrame = window.requestAnimationFrame(drawDust);
     window.addEventListener("pointermove", emitDust, { passive: true });
+    window.addEventListener("pointerdown", emitDust, { passive: true });
     window.addEventListener("resize", resizeCanvas);
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("pointermove", emitDust);
+      window.removeEventListener("pointerdown", emitDust);
       window.removeEventListener("resize", resizeCanvas);
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     };
@@ -420,18 +425,25 @@ export function SkillOrbitSystem() {
         const target = docked && dockPoint
           ? dockPoint
           : scatteredPoint;
+        const iconSize = viewport.width < 640 ? 36 : 44;
 
         return (
           <motion.div
             key={`${skill.group}-${skill.name}`}
             data-orbit-skill={index}
-            className="absolute left-0 top-0 grid size-11 place-items-center"
+            className="absolute left-0 top-0 grid size-9 place-items-center sm:size-11"
             initial={false}
             animate={{
-              x: target.x - 22,
-              y: target.y - 22,
-              opacity: docked ? 1 : 0.26 + (index % 4) * 0.04,
-              filter: docked ? "blur(0px)" : "blur(2.4px)",
+              x: target.x - iconSize / 2,
+              y: target.y - iconSize / 2,
+              opacity: docked
+                ? 1
+                : (viewport.width < 640 ? 0.2 : 0.26) + (index % 4) * 0.04,
+              filter: docked
+                ? "blur(0px)"
+                : viewport.width < 640
+                  ? "blur(2.8px)"
+                  : "blur(2.4px)",
             }}
             transition={{
               x: {
@@ -451,7 +463,7 @@ export function SkillOrbitSystem() {
             }}
           >
             <motion.span
-              className="grid size-9 place-items-center rounded-[12px] border border-[#4a4130]/15 bg-[#faf6eb]/90 shadow-[0_6px_18px_rgba(74,65,45,0.15)]"
+              className="grid size-8 place-items-center rounded-[11px] border border-[#4a4130]/15 bg-[#faf6eb]/90 shadow-[0_6px_18px_rgba(74,65,45,0.15)] sm:size-9 sm:rounded-[12px]"
               initial={false}
               animate={
                 docked
@@ -482,37 +494,39 @@ export function SkillOrbitSystem() {
                     }
               }
             >
-              <Icon className="size-6" style={{ color: skill.visual.color }} />
+              <Icon className="size-5 sm:size-6" style={{ color: skill.visual.color }} />
             </motion.span>
           </motion.div>
         );
       })}
 
-      <motion.div
-        data-react-cursor
-        className="fixed left-0 top-0 z-[90] grid size-9 place-items-center"
-        initial={false}
-        animate={{
-          x: cursor.x - 18,
-          y: cursor.y - 18,
-          opacity: cursorVisible ? 1 : 0,
-          scale: cursorVisible ? 1 : 0.7,
-        }}
-        transition={{
-          x: { type: "spring", stiffness: 620, damping: 38, mass: 0.16 },
-          y: { type: "spring", stiffness: 620, damping: 38, mass: 0.16 },
-          opacity: { duration: 0.15 },
-          scale: { duration: 0.15 },
-        }}
-      >
-        <motion.span
-          className="grid size-9 place-items-center rounded-full border border-[#d4a74b]/70 bg-[#17140e] shadow-[0_5px_18px_rgba(180,130,38,0.3)]"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+      {hasFinePointer ? (
+        <motion.div
+          data-react-cursor
+          className="fixed left-0 top-0 z-[90] grid size-9 place-items-center"
+          initial={false}
+          animate={{
+            x: cursor.x - 18,
+            y: cursor.y - 18,
+            opacity: cursorVisible ? 1 : 0,
+            scale: cursorVisible ? 1 : 0.7,
+          }}
+          transition={{
+            x: { type: "spring", stiffness: 620, damping: 38, mass: 0.16 },
+            y: { type: "spring", stiffness: 620, damping: 38, mass: 0.16 },
+            opacity: { duration: 0.15 },
+            scale: { duration: 0.15 },
+          }}
         >
-          <SiReact className="size-6 text-[#e0b75d]" />
-        </motion.span>
-      </motion.div>
+          <motion.span
+            className="grid size-9 place-items-center rounded-full border border-[#d4a74b]/70 bg-[#17140e] shadow-[0_5px_18px_rgba(180,130,38,0.3)]"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+          >
+            <SiReact className="size-6 text-[#e0b75d]" />
+          </motion.span>
+        </motion.div>
+      ) : null}
     </div>
   );
 }

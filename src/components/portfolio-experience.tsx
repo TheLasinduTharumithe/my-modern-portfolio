@@ -37,7 +37,7 @@ import {
   modules,
   profile,
   socialLinks,
-  timeline,
+  workExperience,
 } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
@@ -229,7 +229,7 @@ function HeroSection({ data }: { data: GithubSyncData }) {
           className="max-w-3xl"
         >
           <motion.div variants={sectionVariant}>
-            <Badge>Current Status: Open to Internship Opportunities</Badge>
+            <Badge>Current Role: Software Engineer Intern at Sarasavi Bookshop</Badge>
           </motion.div>
           <motion.h1
             id="hero-title"
@@ -372,19 +372,63 @@ function RecruiterSection({ data }: { data: GithubSyncData }) {
 
 function ExperienceSection() {
   return (
-    <section id="experience" className="section-pad">
+    <section id="experience" className="section-pad overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Experience"
-          title="Execution signals from academic and project work."
-          copy="A concise timeline focused on the kinds of systems, constraints, and collaboration patterns that translate into internship work."
+          eyebrow="Work Experience"
+          title="Building software in a real business environment."
+          copy="Current professional experience applying software engineering skills within an established Sri Lankan business."
         />
-        <div className="grid gap-4 md:grid-cols-2">
-          {timeline.map((item) => (
-            <Card key={item.title} className="p-6">
-              <BriefcaseBusiness className="size-5 text-cyan-300" />
-              <h3 className="mt-5 text-lg font-semibold text-white">{item.title}</h3>
-              <p className="mt-3 leading-7 text-slate-400">{item.detail}</p>
+        <div className="mt-10 space-y-5">
+          {workExperience.map((experience) => (
+            <Card
+              key={`${experience.company}-${experience.role}`}
+              className="relative overflow-hidden p-6 sm:p-8"
+            >
+              <span
+                className="absolute inset-y-0 left-0 w-1.5 bg-[#034ea2]"
+                aria-hidden="true"
+              />
+
+              <article className="grid items-center gap-7 lg:grid-cols-[minmax(260px,0.85fr)_minmax(0,1.35fr)] lg:gap-10">
+                <div className="flex min-h-36 items-center justify-center rounded-[24px] border border-[#514b3e]/15 bg-white px-6 py-8 shadow-[0_10px_28px_rgba(74,65,45,0.08)]">
+                  <Image
+                    src={experience.logo}
+                    alt="Sarasavi The Bookshop company logo"
+                    width={350}
+                    height={81}
+                    sizes="(max-width: 1024px) 75vw, 350px"
+                    className="h-auto w-full max-w-[350px] object-contain"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-[#dcebdc] px-3 py-1.5 text-xs font-semibold text-[#477b59]">
+                      <span className="size-2 rounded-full bg-[#5f8f70]" aria-hidden="true" />
+                      {experience.status}
+                    </span>
+                    <span className="text-sm font-medium text-slate-400">
+                      {experience.period}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
+                    {experience.role}
+                  </h3>
+                  <p className="mt-2 text-lg font-medium text-[#034ea2]">
+                    {experience.company}
+                  </p>
+                  <p className="mt-4 max-w-2xl leading-7 text-slate-400">
+                    {experience.detail}
+                  </p>
+
+                  <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-sm font-medium text-slate-300">
+                    <BriefcaseBusiness className="size-4 text-[#b8613b]" aria-hidden="true" />
+                    {experience.employmentType}
+                  </div>
+                </div>
+              </article>
             </Card>
           ))}
         </div>
@@ -624,7 +668,7 @@ function ContactSection() {
             {contactItems.map((item) => {
               const Icon = item.icon;
               const content = (
-                <div className="rounded-[20px] border border-white/8 bg-white/[0.03] p-5 transition duration-300 hover:border-white/14">
+                <div className="rounded-[20px] border border-white/8 bg-white/[0.03] p-5 transition duration-300 hover:border-white/14 active:border-white/14">
                   <Icon className="size-4 text-cyan-300" />
                   <p className="mt-4 text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
                     {item.label}
@@ -668,9 +712,13 @@ function Footer() {
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/8 px-3 py-2 text-sm text-slate-400 transition hover:border-white/14 hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/8 px-3 py-2 text-sm text-slate-400 transition hover:border-white/14 hover:text-white active:scale-[0.97] active:border-white/14 active:text-white"
                 >
-                  <Icon className="size-4" />
+                  <Icon
+                    aria-hidden="true"
+                    className="size-4 shrink-0"
+                    style={{ color: link.brandColor }}
+                  />
                   {link.label}
                 </a>
               );

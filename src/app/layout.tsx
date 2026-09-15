@@ -57,10 +57,10 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "/social-share.png",
+        url: "/social-share-graduation-v2.jpg",
         width: 1200,
         height: 630,
-        alt: "Lasindu Tharumitha software engineering portfolio preview",
+        alt: "Lasindu Tharumitha software engineering graduation portfolio preview",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lasindu Tharumitha - BEng (Hons) Software Engineering Graduate",
     description,
-    images: ["/social-share.png"],
+    images: ["/social-share-graduation-v2.jpg"],
   },
   alternates: {
     canonical: siteUrl,
@@ -85,7 +85,7 @@ const personJsonLd = {
   name: profile.name,
   jobTitle: profile.title,
   email: profile.email,
-  image: `${siteUrl}/social-share.png`,
+  image: `${siteUrl}/social-share-graduation-v2.jpg`,
   telephone: profile.phone,
   address: {
     "@type": "PostalAddress",

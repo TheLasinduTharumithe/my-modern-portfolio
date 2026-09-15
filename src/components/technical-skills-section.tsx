@@ -12,31 +12,31 @@ const accentStyles = {
   cyan: {
     icon: "text-[#b8613b]",
     glow: "bg-[#b8613b]/12",
-    tile: "hover:border-[#b8613b]/45 hover:bg-[#b8613b]/[0.06]",
+    tile: "hover:border-[#b8613b]/45 hover:bg-[#b8613b]/[0.06] active:border-[#b8613b]/45 active:bg-[#b8613b]/[0.06]",
     count: "text-[#b8613b]",
   },
   emerald: {
     icon: "text-[#596b50]",
     glow: "bg-[#596b50]/12",
-    tile: "hover:border-[#596b50]/45 hover:bg-[#596b50]/[0.06]",
+    tile: "hover:border-[#596b50]/45 hover:bg-[#596b50]/[0.06] active:border-[#596b50]/45 active:bg-[#596b50]/[0.06]",
     count: "text-[#596b50]",
   },
   amber: {
     icon: "text-[#9b7128]",
     glow: "bg-[#9b7128]/12",
-    tile: "hover:border-[#9b7128]/45 hover:bg-[#9b7128]/[0.06]",
+    tile: "hover:border-[#9b7128]/45 hover:bg-[#9b7128]/[0.06] active:border-[#9b7128]/45 active:bg-[#9b7128]/[0.06]",
     count: "text-[#9b7128]",
   },
   rose: {
     icon: "text-[#a45d52]",
     glow: "bg-[#a45d52]/12",
-    tile: "hover:border-[#a45d52]/45 hover:bg-[#a45d52]/[0.06]",
+    tile: "hover:border-[#a45d52]/45 hover:bg-[#a45d52]/[0.06] active:border-[#a45d52]/45 active:bg-[#a45d52]/[0.06]",
     count: "text-[#a45d52]",
   },
   violet: {
     icon: "text-[#71627c]",
     glow: "bg-[#71627c]/12",
-    tile: "hover:border-[#71627c]/45 hover:bg-[#71627c]/[0.06]",
+    tile: "hover:border-[#71627c]/45 hover:bg-[#71627c]/[0.06] active:border-[#71627c]/45 active:bg-[#71627c]/[0.06]",
     count: "text-[#71627c]",
   },
 } as const;
@@ -121,10 +121,10 @@ export function TechnicalSkillsSection() {
                 variants={shouldReduceMotion ? undefined : cardVariants}
                 className="h-full"
               >
-                <Card className="group/card relative h-full overflow-visible p-5 transition duration-300 hover:-translate-y-1 hover:border-white/16 sm:p-6">
+                <Card className="group/card relative h-full overflow-visible p-5 transition duration-300 hover:-translate-y-1 hover:border-white/16 active:-translate-y-1 active:border-white/16 sm:p-6">
                   <div
                     className={cn(
-                      "pointer-events-none absolute -right-14 -top-14 size-36 rounded-full opacity-0 blur-3xl transition duration-500 group-hover/card:opacity-100",
+                      "pointer-events-none absolute -right-14 -top-14 size-36 rounded-full opacity-0 blur-3xl transition duration-500 group-hover/card:opacity-100 group-active/card:opacity-100",
                       accent.glow,
                     )}
                   />
@@ -162,6 +162,7 @@ export function TechnicalSkillsSection() {
                               accent.tile,
                             )}
                             whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.025 }}
+                            whileTap={shouldReduceMotion ? undefined : { y: -4, scale: 1.025 }}
                             transition={{ type: "spring", stiffness: 280, damping: 20 }}
                           >
                             <span

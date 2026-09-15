@@ -146,7 +146,7 @@ export function ProjectsExplorer({
         </div>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {visibleRepositories.map((repo, index) => (
           <LiveProjectCard key={repo.id} repo={repo} priority={index < 3} />
         ))}

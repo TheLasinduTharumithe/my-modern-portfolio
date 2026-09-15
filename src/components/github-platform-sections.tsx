@@ -400,7 +400,7 @@ function FeaturedRepositoryCard({
   ).slice(0, 5);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/8 bg-white/[0.03] shadow-[0_14px_34px_rgba(74,65,45,0.07)] transition duration-300 hover:scale-[1.02] hover:border-white/14">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/8 bg-white/[0.03] shadow-[0_14px_34px_rgba(74,65,45,0.07)] transition duration-300 hover:scale-[1.02] hover:border-white/14 active:scale-[1.02] active:border-white/14">
       <div className="relative aspect-[16/9] overflow-hidden bg-[#0a0a0a]">
         <Image
           src={repo.thumbnailUrl}
@@ -409,7 +409,7 @@ function FeaturedRepositoryCard({
           priority={priority}
           sizes="(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw"
           unoptimized
-          className="object-cover opacity-80 transition duration-300 group-hover:scale-[1.02]"
+          className="object-cover opacity-80 transition duration-300 group-hover:scale-[1.02] group-active:scale-[1.02]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,10,10,0.82),rgba(10,10,10,0.08))]" />
         <Badge className="absolute left-4 top-4">Pinned</Badge>
@@ -483,7 +483,7 @@ function TimelineItem({ item, last }: { item: GithubActivity; last: boolean }) {
           {!last ? <span className="absolute bottom-0 top-11 w-px bg-white/8" /> : null}
         </div>
         <div className={cn("pb-7", last && "pb-0")}>
-          <div className="flex flex-col gap-2 rounded-[18px] border border-white/8 bg-white/[0.025] p-4 transition duration-300 group-hover:border-white/14 group-hover:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2 rounded-[18px] border border-white/8 bg-white/[0.025] p-4 transition duration-300 group-hover:border-white/14 group-hover:bg-white/[0.04] group-active:border-white/14 group-active:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[15px] font-semibold text-white">{item.title}</p>
               <p className="mt-1 text-sm text-slate-500">{item.repo}</p>

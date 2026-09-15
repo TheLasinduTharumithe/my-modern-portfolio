@@ -96,7 +96,7 @@ textarea {
 }
 
 .section-pad {
-  padding-block: 7rem;
+  padding-block: 5rem;
   scroll-margin-top: 5rem;
 }
 
@@ -152,7 +152,7 @@ textarea {
 
 @media (max-width: 640px) {
   .section-pad {
-    padding-block: 4.5rem;
+    padding-block: 3.75rem;
   }
 }
 

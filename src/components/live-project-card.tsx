@@ -56,8 +56,8 @@ export function LiveProjectCard({
   const caseStudy = getCaseStudy(repo);
 
   return (
-    <Card className="group h-full overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-white/14">
-      <div className="relative aspect-[16/9] overflow-hidden bg-white/[0.03]">
+    <Card className="group h-full overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-white/14 active:-translate-y-1 active:border-white/14">
+      <div className="relative aspect-[2/1] overflow-hidden bg-white/[0.03]">
         <Image
           src={repo.thumbnailUrl}
           alt={`${repo.name} project thumbnail`}
@@ -65,10 +65,10 @@ export function LiveProjectCard({
           priority={priority}
           sizes="(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw"
           unoptimized
-          className="object-cover opacity-78 transition duration-300 group-hover:scale-[1.02]"
+          className="object-cover opacity-78 transition duration-300 group-hover:scale-[1.02] group-active:scale-[1.02]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,10,10,0.86),rgba(10,10,10,0.12))]" />
-        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+        <div className="absolute left-3.5 top-3.5 flex flex-wrap gap-2">
           {repo.isPinned ? <Badge>Featured</Badge> : null}
           {repo.liveDemoUrl ? (
             <span className="inline-flex items-center gap-1 rounded-full border border-cyan-300/24 bg-cyan-300/10 px-3 py-1 text-xs font-medium text-cyan-100">
@@ -77,18 +77,18 @@ export function LiveProjectCard({
             </span>
           ) : null}
         </div>
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-3.5 left-4 right-4">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#d8d2c4]">
             Updated {formatRelativeDate(repo.updatedAt)}
           </p>
-          <h3 className="mt-2 text-xl font-semibold text-[#fffaf0]">{repo.name}</h3>
+          <h3 className="mt-1.5 text-lg font-semibold text-[#fffaf0]">{repo.name}</h3>
         </div>
       </div>
 
-      <div className="p-5">
-        <p className="min-h-14 text-sm leading-7 text-slate-400">{repo.description}</p>
+      <div className="p-4">
+        <p className="line-clamp-2 text-sm leading-6 text-slate-400">{repo.description}</p>
 
-        <div className="mt-5 grid gap-3">
+        <div className="mt-4 grid gap-x-4 gap-y-3 sm:grid-cols-2">
           {[
             ["Challenge", caseStudy.challenge],
             ["Solution", caseStudy.solution],
@@ -99,23 +99,23 @@ export function LiveProjectCard({
               <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
                 {label}
               </p>
-              <p className="mt-1 text-sm leading-6 text-slate-300">{value}</p>
+              <p className="mt-1 text-xs leading-5 text-slate-300">{value}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-white/8 bg-white/[0.035] px-3 py-1 text-xs font-medium text-slate-300"
+              className="rounded-full border border-white/8 bg-white/[0.035] px-2.5 py-1 text-xs font-medium text-slate-300"
             >
               {tech}
             </span>
           ))}
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500">
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500">
           <span className="inline-flex items-center gap-1">
             <Star className="size-3.5" />
             {repo.stars}
@@ -127,7 +127,7 @@ export function LiveProjectCard({
           <span>{formatDate(repo.updatedAt)}</span>
         </div>
 
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <Button asChild variant="secondary" size="sm" className="w-full sm:w-auto">
             <a href={repo.githubUrl} target="_blank" rel="noreferrer">
               <Github className="size-4" />

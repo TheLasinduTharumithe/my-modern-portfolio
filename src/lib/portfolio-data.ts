@@ -1,21 +1,19 @@
 import {
   Award,
   Blocks,
-  BriefcaseBusiness,
   Code2,
   Database,
   Figma,
-  Github,
   GraduationCap,
   LayoutDashboard,
   Network,
   Rocket,
   Server,
   ShieldCheck,
-  Sparkles,
   TerminalSquare,
   Users,
 } from "lucide-react";
+import { SiGithub, SiGmail, SiLinkedin } from "react-icons/si";
 
 export const profile = {
   name: "Lasindu Tharumitha",
@@ -47,17 +45,20 @@ export const socialLinks = [
   {
     label: "GitHub",
     href: `https://github.com/${profile.githubUsername}`,
-    icon: Github,
+    icon: SiGithub,
+    brandColor: "#181717",
   },
   {
     label: "Email",
     href: `mailto:${profile.email}`,
-    icon: Sparkles,
+    icon: SiGmail,
+    brandColor: "#EA4335",
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/lasindu-tharumitha-270337386",
-    icon: BriefcaseBusiness,
+    href: "https://www.linkedin.com/in/lasindu-tharumitha-a5850a434/",
+    icon: SiLinkedin,
+    brandColor: "#0A66C2",
   },
 ];
 
@@ -219,33 +220,18 @@ export const projects = [
   },
 ];
 
-export const timeline = [
+export const workExperience = [
   {
-    title: "Software Engineering Student",
+    role: "Software Engineer Intern",
+    company: "Sarasavi Bookshop (Pvt) Ltd",
+    period: "Present",
+    employmentType: "Internship",
+    status: "Current role",
+    logo: "/sarasavi-bookshop-logo.svg",
     detail:
-      "Building strong foundations in software engineering, secure systems, databases, web development, and networking.",
+      "Currently gaining hands-on experience as a Software Engineer Intern in a professional software engineering environment.",
   },
-  {
-    title: "Full Stack Development Projects",
-    detail:
-      "Creating production-minded applications with Next.js, TypeScript, Firebase, ASP.NET MVC, and SQL-backed workflows.",
-  },
-  {
-    title: "Networking Projects",
-    detail:
-      "Designing VLAN, VPN, routing, switching, and enterprise infrastructure simulations with Cisco Packet Tracer.",
-  },
-  {
-    title: "Database Projects",
-    detail:
-      "Modeling normalized schemas, reports, inventory flows, and CRUD-heavy systems across MySQL, SQL Server, and Firestore.",
-  },
-  {
-    title: "Freelance Learning Journey",
-    detail:
-      "Practicing client-minded delivery through UI polish, documentation, communication, and iterative improvement.",
-  },
-];
+] as const;
 
 export const modules = [
   "Programming",
