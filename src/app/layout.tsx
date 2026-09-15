@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SkillOrbitSystem } from "@/components/skill-orbit-system";
 import { ThemeProvider } from "@/components/theme-provider";
 import { profile } from "@/lib/portfolio-data";
 
@@ -91,10 +92,16 @@ const personJsonLd = {
     addressLocality: "Matara",
     addressCountry: "Sri Lanka",
   },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: profile.institution,
-  },
+  alumniOf: [
+    {
+      "@type": "CollegeOrUniversity",
+      name: profile.institution,
+    },
+    {
+      "@type": "EducationalOrganization",
+      name: "Pearson",
+    },
+  ],
   knowsAbout: [
     "Software Engineering",
     "Full Stack Development",
@@ -126,7 +133,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SkillOrbitSystem />
+          {children}
+        </ThemeProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useSpring, type Variants } from "framer-motion";
+import { SiPearson } from "react-icons/si";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -26,14 +27,15 @@ import {
   RecruiterDashboard,
 } from "@/components/github-platform-sections";
 import { ProjectsExplorer } from "@/components/projects-explorer";
+import { TechnicalSkillsSection } from "@/components/technical-skills-section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { GithubSyncData } from "@/lib/github-types";
 import {
+  educationHistory,
   modules,
   profile,
-  skillGroups,
   socialLinks,
   timeline,
 } from "@/lib/portfolio-data";
@@ -134,15 +136,16 @@ function Header() {
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-white/10 bg-[#0a0a0a]/72 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:px-4">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-white/10 bg-[#0a0a0a]/72 px-3 shadow-[0_10px_28px_rgba(74,65,45,0.1)] backdrop-blur-2xl sm:px-4">
         <a href="#home" className="flex items-center gap-3" aria-label="Home">
           <span className="relative size-9 overflow-hidden rounded-full border border-white/10 bg-white/[0.04]">
             <Image
-              src="/hero-lasindu-profile.webp"
-              alt="Lasindu Tharumitha profile photo"
+              src="/lasindu-graduation-profile.jpg"
+              alt="Lasindu Tharumitha at his graduation"
               fill
-              sizes="36px"
-              className="object-cover"
+              unoptimized
+              sizes="96px"
+              className="origin-[31%_29%] scale-[2.1] object-cover"
             />
           </span>
           <span className="hidden text-sm font-medium text-white sm:block">Lasindu</span>
@@ -184,7 +187,7 @@ function Header() {
 
       {open ? (
         <motion.div
-          className="mx-auto mt-2 grid max-w-6xl gap-1 rounded-[20px] border border-white/10 bg-[#0a0a0a]/92 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.28)] backdrop-blur-2xl lg:hidden"
+          className="mx-auto mt-2 grid max-w-6xl gap-1 rounded-[20px] border border-white/10 bg-[#0a0a0a]/92 p-2 shadow-[0_10px_28px_rgba(74,65,45,0.1)] backdrop-blur-2xl lg:hidden"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.24 }}
@@ -218,7 +221,6 @@ function HeroSection({ data }: { data: GithubSyncData }) {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-28" aria-labelledby="hero-title">
-      <div className="absolute inset-x-0 top-0 -z-10 mx-auto h-[34rem] max-w-5xl rounded-full bg-cyan-400/10 blur-3xl" />
       <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-6xl items-center gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <motion.div
           initial="hidden"
@@ -276,20 +278,19 @@ function HeroSection({ data }: { data: GithubSyncData }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div className="absolute inset-8 rounded-full bg-cyan-400/16 blur-3xl" />
-          <div className="relative mx-auto aspect-square overflow-hidden rounded-full border border-white/10 bg-white/[0.04] p-2 shadow-[0_24px_120px_rgba(0,0,0,0.44)]">
+          <div className="relative mx-auto aspect-square overflow-hidden rounded-full border border-white/10 bg-white/[0.04] p-2 shadow-[0_28px_70px_rgba(74,65,45,0.16)]">
             <div className="relative h-full overflow-hidden rounded-full">
               <Image
-                src="/hero-lasindu-profile.webp"
-                alt="Lasindu Tharumitha professional portrait"
+                src="/lasindu-graduation-profile.jpg"
+                alt="Lasindu Tharumitha at his London Metropolitan University graduation"
                 fill
                 priority
                 sizes="(max-width: 768px) 82vw, 430px"
-                className="object-cover"
+                className="scale-[1.03] object-cover object-center"
               />
             </div>
           </div>
-          <div className="absolute -bottom-4 left-1/2 w-[88%] -translate-x-1/2 rounded-[20px] border border-white/10 bg-[#0a0a0a]/80 p-4 text-center shadow-[0_8px_32px_rgba(0,0,0,0.28)] backdrop-blur-2xl">
+          <div className="absolute -bottom-4 left-1/2 w-[88%] -translate-x-1/2 rounded-[20px] border border-white/10 bg-[#0a0a0a]/80 p-4 text-center shadow-[0_10px_28px_rgba(74,65,45,0.1)] backdrop-blur-2xl">
             <p className="text-sm font-medium text-white">Lasindu Tharumitha</p>
             <p className="mt-1 text-sm text-slate-400">{profile.location}</p>
           </div>
@@ -330,53 +331,6 @@ function AboutSection() {
             ))}
           </motion.div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function SkillsSection() {
-  return (
-    <section id="skills" className="section-pad">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          eyebrow="Capabilities"
-          title="A balanced stack, shown without vanity metrics."
-          copy="Grouped by the way the stack appears in real work: interfaces, services, data, infrastructure, and delivery tools."
-        />
-        <motion.div
-          className="grid gap-4 md:grid-cols-2 xl:grid-cols-3"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.12 }}
-          variants={stagger}
-        >
-          {skillGroups.map((group) => {
-            const Icon = group.icon;
-            return (
-              <motion.div key={group.title} variants={sectionVariant}>
-                <Card className="h-full p-6">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-cyan-300">
-                      <Icon className="size-4" />
-                    </span>
-                    <h3 className="text-lg font-semibold text-white">{group.title}</h3>
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {group.skills.map(([name]) => (
-                      <span
-                        key={name}
-                        className="rounded-full border border-white/8 bg-white/[0.035] px-3 py-1.5 text-sm text-slate-300"
-                      >
-                        {name}
-                      </span>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </motion.div>
       </div>
     </section>
   );
@@ -440,40 +394,172 @@ function ExperienceSection() {
 }
 
 function EducationSection() {
-  return (
-    <section id="education" className="section-pad">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <Card className="p-7">
-            <Badge>Education</Badge>
-            <h2 className="mt-5 text-3xl font-semibold text-white">{profile.education}</h2>
-            <p className="mt-4 text-slate-400">{profile.institution} - {profile.location}</p>
-            <p className="mt-6 leading-8 text-slate-300">
-              Coursework spans programming, databases, networking, security,
-              software development, and web engineering. The emphasis is on
-              turning fundamentals into working systems.
-            </p>
-          </Card>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {modules.map((module) => {
-              const Icon = moduleIcons[module as keyof typeof moduleIcons] || Code2;
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 78%", "end 42%"],
+  });
+  const lineProgress = useSpring(scrollYProgress, {
+    stiffness: 85,
+    damping: 24,
+    mass: 0.45,
+  });
 
-              return (
+  return (
+    <section id="education" className="section-pad overflow-hidden">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <Badge>Education</Badge>
+          <h2 className="mt-5 text-3xl font-semibold tracking-normal text-white sm:text-4xl">
+            The academic path behind my engineering practice.
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-400">
+            A focused progression from computing foundations to First Class Honours in
+            software engineering.
+          </p>
+        </div>
+
+        <div ref={timelineRef} className="relative mt-12 space-y-10 lg:space-y-14">
+          <div
+            className="absolute bottom-8 left-[23px] top-8 w-px bg-[#514b3e]/25 lg:left-1/2 lg:-translate-x-1/2"
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute bottom-8 left-[22px] top-8 w-[3px] origin-top rounded-full bg-[#b8613b] lg:left-1/2 lg:-translate-x-1/2"
+            style={{ scaleY: lineProgress }}
+            aria-hidden="true"
+          />
+
+          {educationHistory.map((education, index) => {
+            const isLondonMet = education.logo === "london-met";
+
+            return (
+              <article
+                key={education.qualification}
+                className="relative pl-14 lg:grid lg:grid-cols-[1fr_5rem_1fr] lg:pl-0"
+              >
+                <span
+                  className={cn(
+                    "absolute left-[17px] top-8 z-10 grid size-3.5 place-items-center rounded-full border-[3px] border-[#e7dfca] lg:left-1/2 lg:-translate-x-1/2",
+                    education.accent === "terracotta"
+                      ? "bg-[#b8613b]"
+                      : "bg-[#5f8f70]",
+                  )}
+                  aria-hidden="true"
+                />
+
                 <Card
-                  key={module}
-                  className="flex min-h-28 flex-col justify-between p-5 transition duration-300 hover:border-white/14"
+                  className={cn(
+                    "relative p-5 sm:p-6 lg:col-span-1",
+                    index % 2 === 0 ? "lg:col-start-1" : "lg:col-start-3",
+                  )}
                 >
-                  <span className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-cyan-300">
-                    <Icon className="size-4" />
+                  <span
+                    className={cn(
+                      "inline-flex rounded-full px-3 py-1 text-xs font-semibold",
+                      education.accent === "terracotta"
+                        ? "bg-[#f2ddc9] text-[#a94f28]"
+                        : "bg-[#dcebdc] text-[#477b59]",
+                    )}
+                  >
+                    {education.period}
                   </span>
-                  <p className="mt-6 text-lg font-medium text-white">{module}</p>
+
+                  <div className="mt-5 flex items-start gap-4">
+                    <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-[16px] border border-[#514b3e]/15 bg-[#fcf9f0] shadow-[0_8px_20px_rgba(74,65,45,0.09)]">
+                      {isLondonMet ? (
+                        <LondonMetMark />
+                      ) : (
+                        <SiPearson className="size-9 text-[#1d99a6]" aria-hidden="true" />
+                      )}
+                    </span>
+
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-semibold leading-snug text-white sm:text-2xl">
+                        {education.qualification}
+                      </h3>
+                      <p className="mt-1 text-base text-slate-400">
+                        {education.institution} · {education.location}
+                      </p>
+                      <p
+                        className={cn(
+                          "mt-2 text-sm font-semibold",
+                          education.accent === "terracotta"
+                            ? "text-[#b2542e]"
+                            : "text-[#477b59]",
+                        )}
+                      >
+                        {education.status}
+                      </p>
+                    </div>
+                  </div>
                 </Card>
-              );
-            })}
-          </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-12">
+          <Card className="p-6">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-xl">
+                <Badge>Academic Foundation</Badge>
+                <p className="mt-4 leading-7 text-slate-400">
+                  Core modules that support my full-stack, database, security,
+                  and infrastructure work.
+                </p>
+              </div>
+              <div className="flex max-w-2xl flex-wrap gap-2.5">
+                {modules.map((module) => {
+                  const Icon = moduleIcons[module as keyof typeof moduleIcons] || Code2;
+
+                  return (
+                    <span
+                      key={module}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-sm font-medium text-slate-300"
+                    >
+                      <Icon className="size-4 text-cyan-300" aria-hidden="true" />
+                      {module}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </section>
+  );
+}
+
+function LondonMetMark() {
+  const dots = Array.from({ length: 14 }, (_, index) => {
+    const angle = (index / 14) * Math.PI * 2;
+    return {
+      cx: 24 + Math.cos(angle) * (index % 2 === 0 ? 13 : 10),
+      cy: 24 + Math.sin(angle) * (index % 2 === 0 ? 13 : 10),
+    };
+  });
+
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      className="size-10 rounded-[11px]"
+      role="img"
+      aria-label="London Metropolitan University mark"
+    >
+      <rect width="48" height="48" rx="11" fill="#11110f" />
+      <circle cx="24" cy="24" r="3" fill="#f8f3e7" />
+      {dots.map((dot, index) => (
+        <circle
+          key={index}
+          cx={dot.cx}
+          cy={dot.cy}
+          r={index % 3 === 0 ? 1.8 : 1.35}
+          fill="#f8f3e7"
+        />
+      ))}
+    </svg>
   );
 }
 
@@ -615,7 +701,7 @@ export function PortfolioExperience({
       <main>
         <HeroSection data={githubData} />
         <AboutSection />
-        <SkillsSection />
+        <TechnicalSkillsSection />
         <ProjectsSection data={githubData} />
         <RecruiterSection data={githubData} />
         <ExperienceSection />

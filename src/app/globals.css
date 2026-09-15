@@ -3,13 +3,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #e7dfca;
+  --foreground: #292920;
+  --surface: #f4efe3;
+  --surface-soft: rgba(250, 247, 238, 0.62);
+  --natural-border: rgba(61, 61, 47, 0.16);
+  --muted-ink: #6f6a5b;
+  --olive: #3f4936;
+  --olive-hover: #4c5841;
+  --terracotta: #b8613b;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #e7dfca;
+  --foreground: #292920;
 }
 
 @theme inline {
@@ -17,6 +24,28 @@
   --color-foreground: var(--foreground);
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-slate-100: #35362d;
+  --color-slate-200: #424238;
+  --color-slate-300: #545348;
+  --color-slate-400: #6f6a5b;
+  --color-slate-500: #817b6b;
+  --color-slate-600: #968e7c;
+  --color-cyan-100: #f0d8c7;
+  --color-cyan-200: #d89470;
+  --color-cyan-300: #c8744d;
+  --color-cyan-400: #b8613b;
+  --color-emerald-200: #728168;
+  --color-emerald-300: #596b50;
+  --color-emerald-400: #4c5f44;
+  --color-amber-200: #c59b52;
+  --color-amber-300: #aa7b2c;
+  --color-amber-400: #946920;
+  --color-rose-200: #c58476;
+  --color-rose-300: #ac6458;
+  --color-rose-400: #964f45;
+  --color-violet-200: #92849f;
+  --color-violet-300: #766781;
+  --color-violet-400: #62556d;
 }
 
 * {
@@ -39,7 +68,7 @@ body {
 }
 
 body::selection {
-  background: rgba(34, 211, 238, 0.35);
+  background: rgba(184, 97, 59, 0.28);
 }
 
 a {
@@ -53,26 +82,72 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 
+[data-skill-static-icon] {
+  transition: opacity 180ms ease;
+}
+
+.skill-orbit-active [data-skill-static-icon] {
+  opacity: 0;
+}
+
+.react-cursor-active,
+.react-cursor-active * {
+  cursor: none !important;
+}
+
 .section-pad {
   padding-block: 7rem;
   scroll-margin-top: 5rem;
 }
 
 .premium-shell {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.14), transparent 34rem),
-    linear-gradient(180deg, #0a0a0a 0%, #0f172a 58%, #0a0a0a 100%);
+  background: #e7dfca;
+  color: var(--foreground);
 }
 
 .premium-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
+  border: 1px solid var(--natural-border);
+  background: var(--surface-soft);
+  box-shadow: 0 14px 34px rgba(74, 65, 45, 0.07);
+  backdrop-filter: none;
 }
 
 .text-gradient {
-  color: #06b6d4;
+  color: var(--terracotta);
+}
+
+.premium-shell.text-white,
+.premium-shell .text-white {
+  color: var(--foreground);
+}
+
+.premium-shell [class*="border-white/"] {
+  border-color: var(--natural-border);
+}
+
+.premium-shell [class*="hover:border-white/"]:hover {
+  border-color: rgba(61, 61, 47, 0.3);
+}
+
+.premium-shell [class*="bg-white/"] {
+  background-color: rgba(255, 252, 243, 0.36);
+}
+
+.premium-shell [class*="hover:bg-white/"]:hover {
+  background-color: rgba(255, 252, 243, 0.7);
+}
+
+.premium-shell [class*="bg-black/"] {
+  background-color: rgba(71, 63, 48, 0.045);
+}
+
+.premium-shell [class*="bg-[#0a0a0a]"] {
+  background-color: rgba(244, 239, 227, 0.92);
+}
+
+.premium-shell select option {
+  background: #f4efe3;
+  color: #292920;
 }
 
 @media (max-width: 640px) {

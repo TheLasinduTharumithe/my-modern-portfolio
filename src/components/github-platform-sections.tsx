@@ -30,7 +30,7 @@ import { profile, skillGroups } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
 const dashboardCard =
-  "rounded-[24px] border border-white/8 bg-white/[0.03] p-6 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:p-8";
+  "rounded-[24px] border border-white/8 bg-white/[0.03] p-6 shadow-[0_14px_34px_rgba(74,65,45,0.07)] sm:p-8";
 
 const preferredTechnologies = [
   "TypeScript",
@@ -400,7 +400,7 @@ function FeaturedRepositoryCard({
   ).slice(0, 5);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/8 bg-white/[0.03] shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl transition duration-300 hover:scale-[1.02] hover:border-white/14">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/8 bg-white/[0.03] shadow-[0_14px_34px_rgba(74,65,45,0.07)] transition duration-300 hover:scale-[1.02] hover:border-white/14">
       <div className="relative aspect-[16/9] overflow-hidden bg-[#0a0a0a]">
         <Image
           src={repo.thumbnailUrl}

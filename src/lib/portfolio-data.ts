@@ -28,7 +28,7 @@ export const profile = {
   email: "thelasindutharumitha@gmail.com",
   phone: "+94 76 426 7166",
   education: "BEng (Hons) in Software Engineering",
-  institution: "Advanced College of Colombo",
+  institution: "London Metropolitan University",
   githubUsername: "TheLasinduTharumithe",
 };
 
@@ -255,6 +255,27 @@ export const modules = [
   "Software Development",
   "Web Development",
 ];
+
+export const educationHistory = [
+  {
+    period: "2025 Sep — 2026 Sep",
+    qualification: "BEng (Hons) Software Engineering",
+    institution: "London Metropolitan University",
+    location: "United Kingdom",
+    status: "Graduated with First Class Honours",
+    logo: "london-met",
+    accent: "terracotta",
+  },
+  {
+    period: "2024 Feb — 2025 Sep",
+    qualification: "Higher National Diploma (HND) in Computing",
+    institution: "Pearson",
+    location: "United Kingdom",
+    status: "Completed",
+    logo: "pearson",
+    accent: "sage",
+  },
+] as const;
 
 export const certificates = [
   "Full Stack Development",

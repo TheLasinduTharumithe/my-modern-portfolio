@@ -78,10 +78,10 @@ export function LiveProjectCard({
           ) : null}
         </div>
         <div className="absolute bottom-4 left-4 right-4">
-          <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#d8d2c4]">
             Updated {formatRelativeDate(repo.updatedAt)}
           </p>
-          <h3 className="mt-2 text-xl font-semibold text-white">{repo.name}</h3>
+          <h3 className="mt-2 text-xl font-semibold text-[#fffaf0]">{repo.name}</h3>
         </div>
       </div>
 
